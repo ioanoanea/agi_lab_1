@@ -10,6 +10,8 @@ class Line:
     '''
 
     def __init__(self, a: float = 0, b: float = 1, c: float = 0):
+        if a == 0 and b == 0:
+            raise Exception("Drepta invalida!")
         self.__a = a
         self.__b = b
         self.__c = c
@@ -37,6 +39,8 @@ class Line:
         :param vector:
         :return:
         '''
+        if vector.x == 0 and vector.y == 0:
+            raise Exception("Drepta invalida!")
         self.__a = vector.y
         self.__b = -vector.x
         self.__c = vector.x * y - vector.y * x

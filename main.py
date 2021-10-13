@@ -1,4 +1,4 @@
-from objects.draw import draw
+from objects.plotter import Plotter
 from objects.reflexion import *
 from objects.line import Line
 import numpy as np
@@ -32,7 +32,6 @@ if option == "1":
     line = Line(a, b, c)
 # Altfel, daca dreapta este data prin punct si vector director
 elif option == "2":
-    # Citim coordonatele punctullui si versorii vectorului director
     x = float(input("x punct: "))
     y = float(input("y punct: "))
     i = float(input("i vector: "))
@@ -43,7 +42,6 @@ else:
 
 nr_points = int(input("Nr. varfuri poligon: "))
 
-
 polygon = Polygon()
 # Citeste fiecare varf al poligonului
 for i in range(nr_points):
@@ -53,7 +51,6 @@ for i in range(nr_points):
     # adauga varful in lista de varfuri a poligonului
     point = Vector2D(x, y)
     polygon.add_point(point)
-
 
 reflexion = Reflexion(line)
 # Daca dreapta e paralela cu Ox
@@ -113,3 +110,19 @@ else:
 # Afisam matricea transformarii
 print("Transformarea cautata este:")
 print_matrix(reflexion.final_transformation())
+
+# Afisam matricea poligonului initial
+print("Matricea poligonului initial este:")
+print_matrix(polygon.get_matrix())
+
+# Matricea poligonului reflectat
+reflected_matrix = np.array(reflexion.final_transformation()) @ np.array(polygon.get_matrix())
+print("Matricea poligonului reflectat este:")
+print_matrix(reflected_matrix)
+
+# Afiseaza grafic rezultatul
+plotter = Plotter()
+plotter.add_line(line, "Dreapta data")
+plotter.add_polygon(polygon.get_matrix(), "Poligonul initial", (1, 0.7, 0, 0.5))
+plotter.add_polygon(reflected_matrix, "Poligonul reflectat", (1, 0, 0, 0.5))
+plotter.show()

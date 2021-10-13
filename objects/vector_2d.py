@@ -47,3 +47,10 @@ class Vector2D:
         self.__x *= scalar
         self.__y *= scalar
         return self
+
+    def to_list(self):
+        '''
+        Returneaza o lista cu coordonatele
+        :return:
+        '''
+        return [self.__x, self.__y]
